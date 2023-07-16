@@ -2,21 +2,31 @@
 
 We’re going to create a tiny demo web app that uses Fontkit to render a string in a given font as SVG. The font will be loaded from the web.
 
-1. Make sure you have `npm` and `npx` installed. They’re included with Node.js, which you get here: https://nodejs.org/en/download
+1. Install `npm` and `npx`. They’re included with Node.js, which you get here: `https://nodejs.org/en/download`
 
-2. Create a folder that can be served by your computer’s localhost, e.g. "fontkit-tiny" served as http://localhost/fontkit-tiny . If you don’t have localhost set up, then you will need to upload the files to a web server.
+2. Download this repository, unzip it, and rename the enclosing folder from `fontkit-tiny-main` to `fontkit-tiny`. Place the folder somewhere it can be served as a website, e.g. as a subfolder of `~/Sites/``.
 
-3. Download this repository, unzip it, and place the files in the "`fontkit-tiny`" folder. So "`package.json`" at the top level, and "`index.html`" in the "`src`" folder.
+3. Change directory to `fontkit-tiny` and type:  
+`npm install`
+	* _This reads `package.json`, identifies all the Node modules required by your project (“the project’s dependencies”), and downloads them into a new folder `node_modules`. If you open `package.json`, you will see that only the `fontkit` module is explicitly required. All the others (“Fontkit’s dependencies”) are called for by Fontkit via its own `package.json` file._
 
-4. cd to the "`fontkit-tiny`" folder.
+4. We need one more thing, a “bundler”. This extracts all the required code from the modules, and “bundles” it together in one file. There are several bundlers available. We’re going to use the [Parcel](https://parceljs.org) bundler, written by the author of Fontkit, Devon Govett. You install Parcel via the command line. Type:  
+`npm install --save-dev parcel`
 
-5. Type "npm install" [Enter]. This reads "package.json" to identify and download all the Node modules required by your project (the "dependencies"). In this case that’s Fontkit itself and all the Node modules required by Fontkit ("Fontkit’s dependencies"). If you open "`package.json`", you will see that only the "fontkit" module is explicitly required. All the others are called for by Fontkit, via its own "package.json" file. Notice a new folder, "`node_modules`", that contains all these modules, including the "`fontkit`" folder.
+5. Now we’re ready to create the final html file. This will create a `dist` folder containing the file `index.html`. Type:  
+`npx parcel src/index.html`
 
-6. We need one more thing, a "bundler". This extracts all the required code from each of the modules, and "bundles" it all together in one file. There are several bundlers available. We’re going to use the bundler written by the author of Fontkit itself, Devon Govett — it’s called Parcel. You install Parcel via the command line. Type "`npm install --save-dev parcel`" [Enter].
+6. Now go to this file in your web browser. If all is well, you should see “hello, world!”.
 
-7. Now we’re ready to create the final html file. Type "`npx parcel src/index.html`" [Enter]. This creates a "`dist`" folder and an "`index.html`" inside it. Try visiting http://localhost/fontkit-tiny/dist/index.html (edit this according to the location you chose in Step 2).
+	* _If you open `index.html` in the `src` folder, you’ll see that string. Edit it and save the file. You can also see the font URL, the font size and the variation settings. Try changing those too, and refresh your browser. whenever you save `index.html`, Parcel detects the changes and rebuilds the bundle. You can stop Parcel via Ctrl-C._
 
-8. If all is well, you should see "hello ,world!". If you open "`index.html`", you’ll see that string. Edit it and save the file. You can also see the font URL, the font size and the variation settings. Try changing those too, and refresh your browser. Notice the `"transform"` attribute in the SVG, which depends on the "`fontSize`" variable (try changing it) and the "`upem`" (units per em) of the font.
+	* _Notice the `transform` attribute in the SVG, which depends on the `fontSize` variable (try changing it) and the `upem` (units per em) of the font. Notice how the code gets Fontkit to supply this value, so you don’t normally need to touch this._
 
-9. A very neat thing about Parcel is that it has its own web server built in. When you run Parcel, you’ll see it gives you a URL to go to, probably `http://localhost:1234`. If you go there,  you may have noticed is that when you edit and save "`index.html`"(the one in the "src" subfolder), the bundled "`index.html`" in the "`dist`" folder (that you loaded with your web browser) updates too. Not only that,  when you refresh your browser. That happens because Parcel watches your "src" folder, continually checking for changes. If it notices a change, it immediately creates a new bundle. You can stop Parcel via Ctrl-C. (Parcel also uses a built-in web server to make the bundled index.html available at http://localhost:1234, and uses WebSockets to trigger the browser to reload the page if you change the source code. This is very cool, but isn’t entirely convenient, since its little server does not know how to serve any other files apart from the bundled index.html. So if you have any local assets such as fonts and images, they won’t load.)
+	* _You should never edit the `index.html` file in the `dist` folder. It is overwritten every time you run Parcel._
 
+	* _A really neat thing about Parcel is that it has its own web server built in. When you run Parcel, you’ll see it gives you a URL to go to, probably `http://localhost:1234`. If you go there, and try editing and saving `index.html` (the one in the "src" subfolder), then not only does the bundled `index.html` in the `dist` folder (that you loaded with your web browser) update, but your browser gets triggered to reload the page. This cool feature isn’t entirely convenient, since its little web server does not know how to serve any other file apart from the bundled index.html. So if you have any local assets such as fonts and images, they won’t load._
+
+7. When you’re ready to build your final web app, then you use an extra `build` commend when calling Parcel. Type:  
+`npx parcel build src/index.html`
+
+	* _This performs extra minification steps on the code. It’s not easily readable by humans._
