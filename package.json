@@ -1,0 +1,9 @@
+{
+  "name": "fontkit-tiny",
+  "version": "1.0.0",
+  "author": "Laurence Penney <lorp@lorp.org>",
+  "description": "A minimal build of Fontkit to demonstrate it working in the browser",
+  "dependencies": {
+    "fontkit": "^2.0.0"
+  }
+}

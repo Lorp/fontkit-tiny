@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Fontkit tiny test</title>
+</head>
+
+<body>
+
+	<h1>Fontkit tiny test</h1>
+	<p>A minimal build of Fontkit to demonstrate it working in the browser.</p>
+	<p>In the source,</p>
+		<ul>
+			<li><tt>fontURL</tt> to point to the font you want to use,</p></li>
+			<li><tt>string</tt> is the text to render,</p></li>
+			<li><tt>fontSize</tt> is the font size,</p></li>
+			<li><tt>axisSettings</tt> is the variation axis settings.</p></li>
+		</ul>
+	<div id="fontkit"></div>
+
+</body>
+
+<script type="module">
+
+	const fontkit = require("fontkit");
+	const fontURL = "https://lorp.github.io/samsa/src/fonts/IBMPlexSansVar-Roman.ttf";
+	
+	async function loadFont(fontPath) {
+		const response = await fetch(fontPath);
+		const arrayBuffer = await response.arrayBuffer();
+		const buf = new Buffer(arrayBuffer);
+		const font = fontkit.create(buf);
+		const upem = font.unitsPerEm;
+		const svgPaths = [];
+
+		let string = "hello, world!"; // choose string
+		let fontSize = 72; // choose font size
+		let axisSettings = {wght: 688, wdth: 90, opsz: 48}; // choose axis settings
+
+		let scale = fontSize/upem;
+		let x=0, y=0;
+		let instance = font.getVariation(axisSettings);
+		let layout = instance.layout(string);
+
+		for (let p=0; p<layout.glyphs.length; p++) {
+			const svgPath = layout.glyphs[p].path.toSVG();			
+			svgPaths.push(`<path transform="translate(${x} ${y})") d="${svgPath}" />`);
+			x += layout.positions[p].xAdvance;
+		}
+
+		const svgPre = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">`;
+		const groupPre = `<g transform="scale(${scale} ${-scale}) translate(0 ${-upem})">`;
+		const groupPost = `</g>`;
+		const svgPost = `</svg>`;
+
+		const div = document.getElementById("fontkit");
+		div.innerHTML = svgPre + groupPre + svgPaths.join("") + groupPost + svgPost;		
+	}
+
+	console.log("calling loadFont() with url: " + fontURL);
+	loadFont(fontURL);
+	console.log("called loadFont()");
+
+</script>
+</html>
