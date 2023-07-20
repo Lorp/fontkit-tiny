@@ -1,10 +1,10 @@
 ## Fontkit tiny demo
 
-We’re going to create a tiny demo web app that uses Fontkit to render a string in a given font as SVG. The font will be loaded from the web.
+We’re going to create a tiny demo web app that uses the [Fontkit](https://github.com/foliojs/fontkit) JavaScript library to render a string in a given font as SVG. The font will be loaded from the web.
 
 1. Install `npm` and `npx`. They’re included with Node.js, which you get here: [Node Downloads](https://nodejs.org/en/download)
 
-2. Download this repository, unzip it, and rename the enclosing folder from `fontkit-tiny-main` to `fontkit-tiny`. Place the folder somewhere it can be served as a website, e.g. as a subfolder of `~/Sites/``.
+2. Download this repository, unzip it, and rename the enclosing folder from `fontkit-tiny-main` to `fontkit-tiny`. Place the folder somewhere it can be served as a website, e.g. as a subfolder of `~/Sites/`.
 
 3. Change directory to `fontkit-tiny` and type:  
 `npm install`
@@ -22,7 +22,7 @@ We’re going to create a tiny demo web app that uses Fontkit to render a string
 
 	* _If you made your project folder within `~/Sites`, then visiting http://localhost/fontkit-tiny/dist/index.html should work._
 
-	* _If you open `index.html` in the `src` folder, you’ll see the string “hello, world!”. Edit it and save the file. You can also see the font size, the variation settings, and the URL of the font file. Try changing those too, and refresh your browser. whenever you save `index.html`, Parcel detects the changes and rebuilds the bundle. You can stop Parcel via Ctrl-C._
+	* _If you open `index.html` in the `src` folder, you’ll see the string “hello, world!”. Edit it and save the file. You can also see the font size, the variation settings, and the URL of the font file. Try changing those too, and refresh your browser. Whenever you save `index.html`, Parcel detects the changes and rebuilds the bundle. You can stop Parcel via Ctrl-C._
 
 	* _Notice the `transform` attribute in the SVG, which depends on the `fontSize` variable and the `upem` (units per em) of the font. Notice how the code gets Fontkit to supply this value, so you don’t normally need to touch this._
 
