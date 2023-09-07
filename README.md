@@ -30,7 +30,7 @@ We’re going to create a tiny demo web app that uses the [Fontkit](https://gith
 
 	* _A really neat thing about Parcel is that it has its own web server built in. When you run Parcel, you’ll see it gives you a URL to go to, probably `http://localhost:1234`. If you go there, and try editing and saving `index.html` (the one in the "src" subfolder), then not only does the bundled `index.html` in the `dist` folder (that you loaded with your web browser) update, but your browser gets triggered to reload the page. This cool feature isn’t entirely convenient, since its little web server does not know how to serve any other file apart from the bundled index.html. So if you have any local assets such as fonts and images, they won’t load._
 
-7. When you’re ready to build your final web app, then you use an extra `build` commend when calling Parcel. Type:  
+7. When you’re ready to build your final web app, you use an extra `build` command when calling Parcel. Type:  
 `npx parcel build src/index.html`
 
 	* _This performs extra minification steps on the code. It’s not easily readable by humans._
